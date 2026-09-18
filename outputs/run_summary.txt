@@ -1,0 +1,19 @@
+AirPure Hospital Grid — Pipeline Run Summary
+==================================================
+
+Anomaly Detection (Autoencoder)
+  Precision: 0.565
+  Recall:    1.000
+  F1 score:  0.722
+  TP=315  FP=243  FN=0  TN=9442
+
+Airflow / CO2 Forecasting
+  CO2 MAE:     38.71 ppm
+  Airflow MAE: 0.0493 m/s
+
+Current Optimizer Recommendations
+  [    NONE] ICU                -> MAINTAIN (Ward within normal ventilation parameters)
+  [    NONE] General_Ward_A     -> MAINTAIN (Ward within normal ventilation parameters)
+  [    HIGH] General_Ward_B     -> INCREASE_FAN_SPEED (Unclassified anomaly detected by autoencoder)
+  [    NONE] Isolation_Ward     -> MAINTAIN (Ward within normal ventilation parameters)
+  [    NONE] Nursing_Station    -> MAINTAIN (Ward within normal ventilation parameters)

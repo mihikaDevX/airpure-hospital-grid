@@ -1,0 +1,10 @@
+# Core (used in this prototype)
+numpy
+pandas
+scikit-learn
+matplotlib
+
+# Production upgrades (see README "Swapping in real hardware / TensorFlow")
+tensorflow>=2.15
+paho-mqtt
+influxdb-client
