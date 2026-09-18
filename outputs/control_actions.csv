@@ -1,6 +1,6 @@
 ward,action,fan_speed_delta_pct,damper_delta_pct,priority,reason
 ICU,MAINTAIN,0,0,NONE,Ward within normal ventilation parameters
 General_Ward_A,MAINTAIN,0,0,NONE,Ward within normal ventilation parameters
-General_Ward_B,INCREASE_FAN_SPEED,25,10,HIGH,Unclassified anomaly detected by autoencoder
+General_Ward_B,MAINTAIN,0,0,NONE,Ward within normal ventilation parameters
 Isolation_Ward,MAINTAIN,0,0,NONE,Ward within normal ventilation parameters
 Nursing_Station,MAINTAIN,0,0,NONE,Ward within normal ventilation parameters

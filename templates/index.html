@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AirPure Hospital Grid</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6f8;
+            color: #1f2933;
+        }
+
+        header {
+            background: #12343b;
+            color: white;
+            padding: 32px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+
+        .metric-title {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .metric {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .normal {
+            color: #16803c;
+        }
+
+        .warning {
+            color: #c77700;
+        }
+
+        .high {
+            color: #c62828;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #125ca8;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #e8f0f3;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .badge-normal {
+            background: #dff5e5;
+            color: #16733a;
+        }
+
+        .badge-high {
+            background: #fde2e2;
+            color: #b42318;
+        }
+
+        .badge-medium {
+            background: #fff0cc;
+            color: #9a6700;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #fff1f1;
+            border-left: 5px solid #d32f2f;
+        }
+
+        .success {
+            padding: 15px;
+            border-radius: 10px;
+            background: #eaf7ee;
+            border-left: 5px solid #16803c;
+        }
+
+        .chart {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+
+        @media (max-width: 800px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>AirPure Hospital Grid</h1>
+
+    <p>
+        AI-Based Intelligent Ventilation Optimization for Infection Control
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="metric-title">
+                TOTAL WARDS
+            </div>
+
+            <div class="metric" id="totalWards">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="metric-title">
+                NORMAL WARDS
+            </div>
+
+            <div class="metric normal" id="normalWards">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="metric-title">
+                HIGH PRIORITY
+            </div>
+
+            <div class="metric high" id="highPriority">
+                -
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="metric-title">
+                SYSTEM STATUS
+            </div>
+
+            <div class="metric normal">
+                ONLINE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ANALYSIS -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            AI Ventilation Analysis
+        </h2>
+
+        <p>
+            Analyze the latest hospital ventilation sensor results
+            and generate ward-level control recommendations.
+        </p>
+
+        <button onclick="runAIAnalysis()" id="runButton">
+    Run AI Analysis
+</button>
+
+    </div>
+
+
+    <!-- ALERTS -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            ⚠️ Ventilation Alerts
+        </h2>
+
+        <div id="alerts">
+            Run the AI analysis to check for ventilation alerts.
+        </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            🏥 Ward Ventilation Status
+        </h2>
+
+        <div class="table-wrapper">
+
+            <div id="results">
+                Run the AI analysis to load ward results.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHART -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            📊 AI Monitoring Summary
+        </h2>
+
+        <p>
+            Generated from the AirPure Hospital Grid analysis pipeline.
+        </p>
+
+        <img
+            src="/outputs/dashboard_summary.png"
+            class="chart"
+            alt="AirPure Hospital Grid analysis summary"
+        >
+
+    </div>
+
+
+    <!-- FEATURES -->
+
+    <div class="card">
+
+        <h2 class="section-title">
+            🤖 AI Capabilities
+        </h2>
+
+        <ul>
+
+            <li>Air quality anomaly detection</li>
+
+            <li>CO₂ forecasting</li>
+
+            <li>Airflow prediction</li>
+
+            <li>Ventilation optimization</li>
+
+            <li>Ward-level control recommendations</li>
+
+            <li>Sensor-driven hospital environment monitoring</li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+
+<footer>
+
+    AirPure Hospital Grid • AI-Based Hospital Ventilation Monitoring
+
+</footer>
+
+
+<script>
+
+async function runAIAnalysis() {
+
+    const button = document.getElementById("runButton");
+
+    button.disabled = true;
+    button.innerText = "Running AI Analysis...";
+
+    try {
+
+        const response = await fetch("/api/run", {
+            method: "POST"
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            alert("AI analysis failed:\n" + data.error);
+
+            return;
+        }
+
+        await loadResults();
+
+        alert("AI analysis completed successfully!");
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert("Unable to run AI analysis.");
+
+    }
+
+    finally {
+
+        button.disabled = false;
+        button.innerText = "Run AI Analysis";
+
+    }
+
+}
+
+
+async function loadResults() {
+
+    const resultsDiv = document.getElementById("results");
+
+    const alertsDiv = document.getElementById("alerts");
+
+
+    resultsDiv.innerHTML = "Loading AI results...";
+
+    alertsDiv.innerHTML = "Analyzing ventilation conditions...";
+
+
+    try {
+
+        const response = await fetch("/api/results");
+
+        const data = await response.json();
+
+
+        if (data.error) {
+
+            resultsDiv.innerHTML =
+                "<p>" + data.error + "</p>";
+
+            return;
+
+        }
+
+
+        if (!data.length) {
+
+            resultsDiv.innerHTML =
+                "<p>No AI results available.</p>";
+
+            return;
+
+        }
+
+
+        // SUMMARY
+
+        const total = data.length;
+
+        const high = data.filter(row =>
+            String(row.priority).toUpperCase() === "HIGH"
+        ).length;
+
+        const normal = total - high;
+
+
+        document.getElementById("totalWards").innerText = total;
+
+        document.getElementById("normalWards").innerText = normal;
+
+        document.getElementById("highPriority").innerText = high;
+
+
+        // ALERTS
+
+        const highRows = data.filter(row =>
+            String(row.priority).toUpperCase() === "HIGH"
+        );
+
+
+        if (highRows.length === 0) {
+
+            alertsDiv.innerHTML = `
+                <div class="success">
+                    ✓ All wards are currently within normal
+                    ventilation parameters.
+                </div>
+            `;
+
+        } else {
+
+            alertsDiv.innerHTML = "";
+
+            highRows.forEach(row => {
+
+                alertsDiv.innerHTML += `
+                    <div class="alert">
+                        <strong>HIGH PRIORITY:</strong>
+                        ${row.ward}
+                        <br>
+                        Recommended action:
+                        <strong>${row.action}</strong>
+                        <br>
+                        ${row.reason}
+                    </div>
+                `;
+
+            });
+
+        }
+
+
+        // TABLE
+
+        let table = `
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Ward</th>
+
+                        <th>Priority</th>
+
+                        <th>AI Action</th>
+
+                        <th>Fan Speed</th>
+
+                        <th>Damper</th>
+
+                        <th>Reason</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+        `;
+
+
+        data.forEach(row => {
+
+
+            const priority =
+                String(row.priority || "NONE").toUpperCase();
+
+
+            let badgeClass = "badge-normal";
+
+
+            if (priority === "HIGH") {
+
+                badgeClass = "badge-high";
+
+            } else if (priority === "MEDIUM") {
+
+                badgeClass = "badge-medium";
+
+            }
+
+
+            table += `
+
+                <tr>
+
+                    <td>
+                        <strong>${row.ward}</strong>
+                    </td>
+
+                    <td>
+
+                        <span class="badge ${badgeClass}">
+                            ${priority}
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${row.action}
+                    </td>
+
+                    <td>
+                        ${row.fan_speed_delta_pct}%
+                    </td>
+
+                    <td>
+                        ${row.damper_delta_pct}%
+                    </td>
+
+                    <td>
+                        ${row.reason}
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+        table += `
+
+                </tbody>
+
+            </table>
+
+        `;
+
+
+        resultsDiv.innerHTML = table;
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        resultsDiv.innerHTML = `
+            <p>
+                Unable to connect to the AI backend.
+            </p>
+        `;
+
+        alertsDiv.innerHTML = `
+            <p>
+                AI analysis could not be loaded.
+            </p>
+        `;
+
+    }
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

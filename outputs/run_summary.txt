@@ -14,6 +14,6 @@ Airflow / CO2 Forecasting
 Current Optimizer Recommendations
   [    NONE] ICU                -> MAINTAIN (Ward within normal ventilation parameters)
   [    NONE] General_Ward_A     -> MAINTAIN (Ward within normal ventilation parameters)
-  [    HIGH] General_Ward_B     -> INCREASE_FAN_SPEED (Unclassified anomaly detected by autoencoder)
+  [    NONE] General_Ward_B     -> MAINTAIN (Ward within normal ventilation parameters)
   [    NONE] Isolation_Ward     -> MAINTAIN (Ward within normal ventilation parameters)
   [    NONE] Nursing_Station    -> MAINTAIN (Ward within normal ventilation parameters)
